@@ -1,0 +1,49 @@
+- hosts: all
+  become: yes
+  become_user: root
+  pre_tasks:
+    - name: Check ALL hosts are reacheable before doing the release
+      assert:
+        that:
+          - ansible_play_hosts == ansible_play_hosts_all
+        fail_msg: 1 or more host is UNREACHABLE
+        success_msg: ALL hosts are REACHABLE, go on
+      run_once: yes
+  roles:
+    - pypack
+
+- hosts: master_group:slaver_group
+  become: yes
+  become_user: root
+
+  roles:
+    - docker
+
+- hosts: master_group
+  become: yes
+  become_user: root
+
+  roles:
+    - master_couchdb
+
+
+- hosts: slaver_group
+  become: yes
+  become_user: root
+
+  roles:
+    - slaver_couchdb
+
+#- hosts: master_group:slaver_group
+#  become: yes
+#  become_user: root
+#
+#  roles:
+#    - crawling
+#
+#- hosts: normal_group
+#  become: yes
+#  become_user: root
+#
+#  roles:
+#    - server

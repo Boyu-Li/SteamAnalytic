@@ -1,0 +1,34 @@
+---
+
+- name: Create docker compose.yml for slaver
+  template:
+    src: docker-compose.yml2.j2
+    dest: docker-compose.yml
+
+- name: Create couchdb storage directory
+  file:
+    path: /home/couchdb/{{hostname}}/data
+    state: directory
+
+- name: Running couchdb-docker
+  become: yes
+  become_method: sudo
+  become_user: root
+  shell:
+    docker-compose up -d
+
+- name: Transfer cluster shell script1
+  template:
+    src: set_cluster.sh.j2
+    dest: set_cluster.sh
+
+- name: Transfer cluster shell script2
+  template:
+    src: get_cluster.sh.j2
+    dest: get_cluster.sh
+
+- name: Add nodes to cluster
+  shell: sh set_cluster.sh
+
+- name: finish cluster config
+  shell: sh get_cluster.sh

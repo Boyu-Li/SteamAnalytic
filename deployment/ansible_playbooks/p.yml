@@ -1,0 +1,5 @@
+- hosts: normal_group
+  become: yes
+  become_user: root
+  roles:
+    - patch

@@ -1,0 +1,21 @@
+---
+- name: Override proxy
+  template:
+    src: environment.j2
+    dest: /etc/environment
+
+- name: Install all required python packages
+  become: yes
+  become_method: sudo
+  become_user: root
+  shell: |
+    apt-get update
+    apt-get install -y python3-pip
+    pip3 install tweepy
+    pip3 install couchdb
+    pip3 install regex
+    pip3 install nltk
+    pip3 install numpy
+    pip3 install tensorflow
+  args:
+    warn: false

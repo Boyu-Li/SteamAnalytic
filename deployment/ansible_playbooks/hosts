@@ -1,0 +1,7 @@
+[master_group]
+master ansible_host=45.113.234.233 hostname=master
+[slaver_group]
+slaver1 ansible_host=45.133.235.44 hostname=slaver1
+slaver2 ansible_host=45.133.232.65 hostname=slaver2
+[normal_group]
+normal ansible_host=45.113.234.206 hostname=normal
