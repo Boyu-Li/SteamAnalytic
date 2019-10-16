@@ -58,11 +58,11 @@ for num in range(4):
     reservation = ec2_conn.run_instances('ami-354d0d56',
                                          placement='melbourne-qh2-uom',
                                          key_name='boyul',
-                                         instance_type='uom.general.1c4g',
+                                         instance_type='uom.general.2c8g',
                                          security_groups=['couchdb', 'default', 'http', 'ssh' ])
     instance = reservation.instances[0]
     print('new instance {} has been created'.format(instance.id))
-    vol_req = ec2_conn.create_volume(5, 'melbourne-qh2-uom')
+    vol_req = ec2_conn.create_volume(15, 'melbourne-qh2-uom')
     print("Waiting for spawning......")
     while instance.state != 'running':
         instance.update()

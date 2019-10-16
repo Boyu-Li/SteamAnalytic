@@ -23,6 +23,7 @@ import urllib
 import urllib.request
 from contextlib import closing
 from time import sleep
+from couchdb import Server
 
 
 def download_page(url, maxretries, timeout, pause):
@@ -37,6 +38,15 @@ def download_page(url, maxretries, timeout, pause):
             tries += 1
     return htmlpage
 
+def store_json(dbserver, list):
+    for item in list:
+        obj = {
+            'type': 'game',
+            'id': item[1],
+            'name': item[2],
+        }
+        dbserver.save(obj)
+
 
 def getgamepages(timeout, maxretries, pause, out):
     baseurl = 'http://store.steampowered.com/search/results?sort_by=_ASC&snr=1_7_7_230_7&page='
@@ -46,7 +56,18 @@ def getgamepages(timeout, maxretries, pause, out):
     pagedir = os.path.join(out, 'pages', 'games')
     if not os.path.exists(pagedir):
         os.makedirs(pagedir)
-
+    user = 'user'
+    password = 'pass'
+    url = 'http://%s:%s@45.113.235.174:5984/'
+    db_name = 'game'
+    server = Server(url % (user, password))
+    if db_name in server:
+        database = server[db_name]
+        print('Login into couchdb database: ', db_name)
+    else:
+        database = server.create(db_name)
+        print('Create new couchdb database: ', db_name)
+    server = Server(url % (user, password))
     retries = 0
     while True:
         url = '%s%s' % (baseurl, page)
@@ -62,6 +83,9 @@ def getgamepages(timeout, maxretries, pause, out):
                 f.write(htmlpage)
 
             pageids = set(gameidre.findall(htmlpage))
+
+
+            store_json(database,pageids)
             if len(pageids) == 0:
                 # sometimes you get an empty page but it is not actually
                 # the last one, so it is better to retry a few times before
