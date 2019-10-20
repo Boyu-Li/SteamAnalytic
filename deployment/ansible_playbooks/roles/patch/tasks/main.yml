@@ -18,5 +18,8 @@
     src: run_crawler.sh.j2
     dest: run_crawler.sh
 
+- name: Changing perm of "run_crawler.sh", adding "+x"
+  file: dest=run_crawler.sh mode=a+x
+
 - name: Execute the script
   command: sh run_crawler.sh
