@@ -15,8 +15,8 @@
 
 - name: Transfer crawler file
   template:
-    src: run.sh.j2
-    dest: run.sh
+    src: run_crawler.sh.j2
+    dest: run_crawler.sh
 
 - name: Execute the script
-  command: sh /home/test_user/test.sh/bin/forever start app.js
+  command: sh run_crawler.sh
