@@ -26,39 +26,38 @@ from time import sleep
 from couchdb import Server
 
 
-def download_page(url, maxretries, timeout, pause):
-    tries = 0
+def download_page(url, timeout, pause):
     htmlpage = None
-    while tries < maxretries and htmlpage is None:
-        try:
-            with closing(urllib.request.urlopen(url, timeout=timeout)) as f:
-                htmlpage = f.read()
-                sleep(pause)
-        except (urllib.error.URLError, socket.timeout, socket.error):
-            tries += 1
+    while htmlpage is None:
+        with closing(urllib.request.urlopen(url, timeout=timeout)) as f:
+            htmlpage = f.read()
+            sleep(pause)
     return htmlpage
 
 def store_json(dbserver, list):
+    index = 0;
     for item in list:
         obj = {
-            'type': 'game',
-            'id': item[1],
-            'name': item[2],
+            'type': index % 3+1,
+            'id': item[0],
+            'name': item[1],
         }
         dbserver.save(obj)
+        print(item[0]+' is saved')
+        index = index + 1
 
 
 def getgamepages(timeout, maxretries, pause, out):
-    baseurl = 'http://store.steampowered.com/search/results?sort_by=_ASC&snr=1_7_7_230_7&page='
+    # baseurl = 'http://store.steampowered.com/search/results?sort_by=_ASC&snr=1_7_7_230_7&page='
+    baseurl = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'
     page = 0
-    gameidre = re.compile(r'/(app|sub)/([0-9]+)/(.+)/')
-
+    gameidre = re.compile(r'"appid":(.*?),"name":"(.*?)"')
     pagedir = os.path.join(out, 'pages', 'games')
     if not os.path.exists(pagedir):
         os.makedirs(pagedir)
     user = 'user'
     password = 'pass'
-    url = 'http://%s:%s@45.113.235.174:5984/'
+    url = 'http://%s:%s@45.113.234.233:5984/'
     db_name = 'game'
     server = Server(url % (user, password))
     if db_name in server:
@@ -67,39 +66,49 @@ def getgamepages(timeout, maxretries, pause, out):
     else:
         database = server.create(db_name)
         print('Create new couchdb database: ', db_name)
-    server = Server(url % (user, password))
     retries = 0
-    while True:
-        url = '%s%s' % (baseurl, page)
-        print(page, url)
-        htmlpage = download_page(url, maxretries, timeout, pause)
+    htmlpage = download_page(baseurl, timeout, pause)
+    if htmlpage is None:
+        print('Error downloading the URL: ' + url)
+        sleep(pause * 10)
+    else:
+        htmlpage = htmlpage.decode()
+        with open(os.path.join(pagedir, 'games-page-%s.html' % page), mode='w', encoding='utf-8') as f:
+            f.write(htmlpage)
+        pageids = set(gameidre.findall(htmlpage))
+        store_json(database, pageids)
 
-        if htmlpage is None:
-            print('Error downloading the URL: ' + url)
-            sleep(pause * 10)
-        else:
-            htmlpage = htmlpage.decode()
-            with open(os.path.join(pagedir, 'games-page-%s.html' % page), mode='w', encoding='utf-8') as f:
-                f.write(htmlpage)
-
-            pageids = set(gameidre.findall(htmlpage))
-
-
-            store_json(database,pageids)
-            if len(pageids) == 0:
-                # sometimes you get an empty page but it is not actually
-                # the last one, so it is better to retry a few times before
-                # considering the work done
-                if retries < maxretries:
-                    print('empty page', retries)
-                    sleep(5)
-                    retries += 1
-                    continue
-                else:
-                    break
-            print(len(pageids), pageids)
-            retries = 0
-            page += 1
+    # while True:
+    #     url = '%s%s' % (baseurl, page)
+    #     print(page, url)
+    #     htmlpage = download_page(url, maxretries, timeout, pause)
+    #
+    #     if htmlpage is None:
+    #         print('Error downloading the URL: ' + url)
+    #         sleep(pause * 10)
+    #     else:
+    #         htmlpage = htmlpage.decode()
+    #         with open(os.path.join(pagedir, 'games-page-%s.html' % page), mode='w', encoding='utf-8') as f:
+    #             f.write(htmlpage)
+    #
+    #         pageids = set(gameidre.findall(htmlpage))
+    #
+    #
+    #         store_json(database,pageids)
+    #         if len(pageids) == 0:
+    #             # sometimes you get an empty page but it is not actually
+    #             # the last one, so it is better to retry a few times before
+    #             # considering the work done
+    #             if retries < maxretries:
+    #                 print('empty page', retries)
+    #                 sleep(5)
+    #                 retries += 1
+    #                 continue
+    #             else:
+    #                 break
+    #         print(len(pageids), pageids)
+    #         retries = 0
+    #         page += 1
 
 
 def main():

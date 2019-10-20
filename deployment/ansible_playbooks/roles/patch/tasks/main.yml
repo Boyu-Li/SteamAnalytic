@@ -1,31 +1,22 @@
-- name: Transfer script1
-  template:
-    src: runs.sh.j2
-    dest: Application/server/runs.sh
-
-- name: Transfer script2
-  template:
-    src: runc.sh.j2
-    dest: Application/client/cloud_assignment_2/runc.sh
-
-- name: Running back end application
+- name: Install all required python packages
+  become: yes
+  become_method: sudo
+  become_user: root
   shell: |
-    cd Application
-    cd server
-    sh runs.sh
-  register: job1
+    pip3 install urllib
+    apt-get update
+  args:
+    warn: false
 
-- name: debug1
-  debug: msg="{{ job1.stdout }}"
+- name: Transfer crawler file
+  template:
+    src: review_crawler.py.j2
+    dest: review_crawler.py
 
+- name: Transfer crawler file
+  template:
+    src: run.sh.j2
+    dest: run.sh
 
-- name: Running front end application
-  shell: |
-    cd Application
-    cd client
-    cd cloud_assignment_2
-    sh runc.sh
-  register: job2
-
-- name: debug2
-  debug: msg="{{ job2.stdout }}"
+- name: Execute the script
+  command: sh /home/test_user/test.sh/bin/forever start app.js
