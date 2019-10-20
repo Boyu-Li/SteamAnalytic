@@ -130,7 +130,7 @@ def getgamereviews(game_list,key):
         while True:
             url = urltemplate.substitute({'id': id, 'cursor': urllib.parse.quote(cursor)})
 
-            print(cursor, url)
+            #print(cursor, url)
             htmlpage = requests.get(url).text
 
             if htmlpage is None:
@@ -175,7 +175,7 @@ def getgamereviews(game_list,key):
                         dict={}
                         try:
                             country = locre.findall(subpage)[0]
-                            print(country)
+                            #print(country)
                             state = locstatere.findall(subpage)[0]
                             #print(state)
                             city = loccityre.findall(subpage)[0]
@@ -221,15 +221,12 @@ def main():
     if server_name == 'master':
         game_list = get_server1_task(database)
         key = keys[0]
-        print(game_list)
     elif server_name == 'slaver1':
         game_list = get_server2_task(database)
         key = keys[1]
-        print(game_list)
     elif server_name == 'slaver2':
         game_list = get_server3_task(database)
         key = keys[2]
-        print(game_list)
     else:
         print('Server name not found, exit')
         exit(1)

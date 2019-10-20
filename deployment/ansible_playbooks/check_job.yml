@@ -2,7 +2,7 @@
   become: yes
   become_user: root
   tasks:
-    - shell: 'jobs -l'
+    - shell: 'ps aux|grep review_crawler.py'
       register: job
 
     - debug:

@@ -211,7 +211,7 @@ def main():
         print('Create new couchdb database: ', db_name)
 
     #server_name = sys.argv[1]
-    server_name = 'master'
+    server_name = 'slaver2'
 
     keys = ['47D02F42306851556CED48DE0BAFC731',
             '2666C7DC59BA3D66C694D350643DF4C3',
