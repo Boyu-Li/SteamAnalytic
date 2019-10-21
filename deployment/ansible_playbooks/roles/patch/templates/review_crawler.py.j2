@@ -87,7 +87,7 @@ def get_server3_task(database):
             id_list.append((game_id, item.value))
     return id_list
 
-def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,type):
+def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,length,type):
     item = {
         'id':id,
         'name':name,
@@ -98,6 +98,7 @@ def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,type):
         'neg':neg,
         'total':total,
         'au_num':au_num,
+        'length':length,
         'type':type
     }
     database.save(item)
@@ -108,7 +109,7 @@ def getgamereviews(game_list,key,type):
     user = 'user'
     password = 'pass'
     url = 'http://%s:%s@localhost:5984/'
-    review_db_name = 'au_player'
+    review_db_name = 'au_user'
     server = Server(url % (user, password))
     if review_db_name in server:
         database1 = server[review_db_name]
@@ -140,10 +141,11 @@ def getgamereviews(game_list,key,type):
         errorCount = 0
         count = 0
         au_num=0
+        length=0
         while True:
             url = urltemplate.substitute({'id': id, 'cursor': urllib.parse.quote(cursor)})
 
-            #print(cursor, url)
+            #(cursor, url)
             htmlpage = requests.get(url).text
 
             if htmlpage is None:
@@ -202,7 +204,7 @@ def getgamereviews(game_list,key,type):
                             au_num=au_num+1
                             dict['country']=country
                             dict['steamid']=item[0]
-                            dict['length']=int(item[1])
+                            length += int(item[1])
                             dict['type']=type
                             if state != '':
                                 dict['state'] = state
@@ -210,7 +212,7 @@ def getgamereviews(game_list,key,type):
                                 dict['city'] = city
                             database1.save(dict)
                 cursor = cursorre.findall(htmlpage)[0]
-        store_game(database2, id, name, rate, rate_state, pos_num, neg_num, total, au_num,type)
+        store_game(database2, id, name, rate, rate_state, pos_num, neg_num, total, au_num, length, type)
 
 
 def main():
@@ -226,8 +228,8 @@ def main():
         database = server.create(db_name)
         print('Create new couchdb database: ', db_name)
 
-    server_name = sys.argv[1]
-    #server_name = 'slaver2'
+    #server_name = sys.argv[1]
+    server_name = 'slaver2'
 
     keys = ['47D02F42306851556CED48DE0BAFC731',
             '2666C7DC59BA3D66C694D350643DF4C3',
