@@ -87,7 +87,7 @@ def get_server3_task(database):
             id_list.append((game_id, item.value))
     return id_list
 
-def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,r_num,length,type):
+def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,r_num,length,r_length,type):
     item = {
         'id':id,
         'name':name,
@@ -100,6 +100,7 @@ def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,r_num,len
         'au_num':au_num,
         'recent_num':r_num,
         'length':length,
+        'rlength':r_length,
         'type':type
     }
     database.save(item)
@@ -141,9 +142,10 @@ def getgamereviews(game_list,key,type):
         length=0
         r_length=0
         r_num=0
-        while True:
+        print(name)
+        while False:
             url = urltemplate.substitute({'id': id, 'cursor': urllib.parse.quote(cursor)})
-            print(cursor, url)
+            #print(cursor, url)
             while True:
                 try:
                     htmlpage = requests.get(url, timeout=20, headers=headers).text
@@ -235,7 +237,8 @@ def getgamereviews(game_list,key,type):
                                 dict['city'] = city
                             database1.save(dict)
             cursor = cursorre.findall(htmlpage)[0]
-        store_game(database2, id, name, rate, rate_state, pos_num, neg_num, total, au_num, r_num,length, type)
+
+        #store_game(database2, id, name, rate, rate_state, pos_num, neg_num, total, au_num, r_num,length,r_length, type)
 
 
 def main():
@@ -263,17 +266,17 @@ def main():
         type=1
         game_list = get_server1_task(database)
         key = keys[0]
-        print(game_list)
+        #print(game_list)
     elif server_name == 'slaver1':
         type = 2
         game_list = get_server2_task(database)
         key = keys[1]
-        print(game_list)
+        #print(game_list)
     elif server_name == 'slaver2':
         type = 3
         game_list = get_server3_task(database)
         key = keys[2]
-        print(game_list)
+        #print(game_list)
     else:
         print('Server name not found, exit')
         exit(1)

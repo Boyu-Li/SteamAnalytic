@@ -87,7 +87,7 @@ def get_server3_task(database):
             id_list.append((game_id, item.value))
     return id_list
 
-def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,r_num,length,type):
+def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,r_num,length,r_length,type):
     item = {
         'id':id,
         'name':name,
@@ -100,6 +100,7 @@ def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,r_num,len
         'au_num':au_num,
         'recent_num':r_num,
         'length':length,
+        'rlength':r_length,
         'type':type
     }
     database.save(item)
@@ -235,7 +236,7 @@ def getgamereviews(game_list,key,type):
                                 dict['city'] = city
                             database1.save(dict)
             cursor = cursorre.findall(htmlpage)[0]
-        store_game(database2, id, name, rate, rate_state, pos_num, neg_num, total, au_num, r_num,length, type)
+        store_game(database2, id, name, rate, rate_state, pos_num, neg_num, total, au_num, r_num,length,r_length, type)
 
 
 def main():
