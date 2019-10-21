@@ -87,7 +87,7 @@ def get_server3_task(database):
             id_list.append((game_id, item.value))
     return id_list
 
-def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,length,type):
+def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,r_num,length,type):
     item = {
         'id':id,
         'name':name,
@@ -98,6 +98,7 @@ def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,length,ty
         'neg':neg,
         'total':total,
         'au_num':au_num,
+        'recent_num':r_num,
         'length':length,
         'type':type
     }
@@ -106,29 +107,25 @@ def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,length,ty
 
 
 def getgamereviews(game_list,key,type):
+    headers = {
+
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+    }
     user = 'user'
     password = 'pass'
     url = 'http://%s:%s@localhost:5984/'
     review_db_name = 'au_user'
     server = Server(url % (user, password))
-    if review_db_name in server:
-        database1 = server[review_db_name]
-        print('Login into couchdb database: ', review_db_name)
-    else:
-        database1 = server.create(review_db_name)
-        print('Create new couchdb database: ', review_db_name)
+    database1 = server[review_db_name]
+    print('Login into couchdb database: ', review_db_name)
     game_db_name = 'game_detail'
     server = Server(url % (user, password))
-    if game_db_name in server:
-        database2 = server[game_db_name]
-        print('Login into couchdb database: ', game_db_name)
-    else:
-        database2 = server.create(game_db_name)
-        print('Create new couchdb database: ', game_db_name)
+    database2 = server[game_db_name]
+    print('Login into couchdb database: ', game_db_name)
     urltemplate = string.Template(
         'https://store.steampowered.com/appreviews/$id?json=1&language=all&filter=all&review_type=all&purchase_type=all&num_per_page=100&day_range=9223372036854775807&cursor=$cursor')
     endre = re.compile(r'({"success":2})|(no_more_reviews)')
-    infore = re.compile(r'"steamid":"(.*?)".*?"playtime_forever":(\d*)')
+    infore = re.compile(r'{"steamid":"(.*?)","num_games_owned":(\d*),"num_reviews":(\d*),"playtime_forever":(\d*),"playtime_last_two_weeks":(\d*),"last_played":(\d*)}')
     headerre = re.compile(
         r'{"num_reviews":(\d*?),"review_score":(\d*?),"review_score_desc":"(.*?)","total_positive":(\d*?),"total_negative":(\d*?),"total_reviews":(\d*?)}')
     locre = re.compile(r'loccountrycode":"(.*?)"')
@@ -142,11 +139,24 @@ def getgamereviews(game_list,key,type):
         count = 0
         au_num=0
         length=0
+        r_length=0
+        r_num=0
         while True:
             url = urltemplate.substitute({'id': id, 'cursor': urllib.parse.quote(cursor)})
-
-            #(cursor, url)
-            htmlpage = requests.get(url).text
+            #print(cursor, url)
+            while True:
+                try:
+                    htmlpage = requests.get(url, timeout=20, headers=headers).text
+                    break
+                except requests.exceptions.ConnectionError:
+                    print('ConnectionError -- please wait 3 seconds')
+                    time.sleep(3)
+                except requests.exceptions.ChunkedEncodingError:
+                    print('ChunkedEncodingError -- please wait 3 seconds')
+                    time.sleep(3)
+                except:
+                    print('Unfortunitely -- An Unknow Error Happened, Please wait 3 seconds')
+                    time.sleep(3)
 
             if htmlpage is None:
                 print('Error downloading the URL: ' + url)
@@ -172,10 +182,14 @@ def getgamereviews(game_list,key,type):
                 for item in lists:
                     suburl = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='+key+'&steamids=' + \
                              item[0]
-
+                    game_num = int(item[1])
+                    review_num = int(item[2])
+                    total_time = int(item[3])
+                    recent_time = int(item[4])
+                    last_played = int(item[5])
                     while True:
                         try:
-                            subpage = requests.get(suburl, timeout=20).text
+                            subpage = requests.get(suburl, timeout=20,headers=headers).text
                             break
                         except requests.exceptions.ConnectionError:
                             print('ConnectionError -- please wait 3 seconds')
@@ -204,15 +218,24 @@ def getgamereviews(game_list,key,type):
                             au_num=au_num+1
                             dict['country']=country
                             dict['steamid']=item[0]
-                            length += int(item[1])
+                            dict['game_num']=game_num
+                            dict['review_num']=review_num
+                            dict['from_game']=id
+                            dict['total_time']=total_time
+                            dict['recent_time']=recent_time
+                            length += total_time
+                            r_length += recent_time
+                            if r_length>0:
+                                r_num=r_num+1
+                            dict['last_played'] = last_played
                             dict['type']=type
                             if state != '':
                                 dict['state'] = state
                             if city != '':
                                 dict['city'] = city
                             database1.save(dict)
-                cursor = cursorre.findall(htmlpage)[0]
-        store_game(database2, id, name, rate, rate_state, pos_num, neg_num, total, au_num, length, type)
+            cursor = cursorre.findall(htmlpage)[0]
+        store_game(database2, id, name, rate, rate_state, pos_num, neg_num, total, au_num, r_num,length, type)
 
 
 def main():
