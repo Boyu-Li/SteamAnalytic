@@ -9,25 +9,26 @@ import requests
 from couchdb import Server
 from couchdb.design import ViewDefinition
 
-def get_server1_task(database):
-
+def get_server_task(database,num):
+    view_name = '_design/multiplayer_game/_view/gameServer'+str(num)
+    mapreduce = '''function(doc) {
+            if (doc.type === '''+str(num)+'''){
+                emit(doc.id, doc.name);
+            }
+        }'''
     id_list = []
 
-    view_result = database.view('_design/multiplayer_game/_view/gameServer1')
+    view_result = database.view(view_name)
 
     try:
         view_result.total_rows
 
     except:
 
-        view = ViewDefinition('multiplayer_game', 'gameServer1', '''function(doc) {
-            if (doc.type === 1){
-                emit(doc.id, doc.name);
-            }
-        }''')
+        view = ViewDefinition('multiplayer_game', 'gameServer'+str(num), mapreduce)
         view.get_doc(database)
         view.sync(database)
-        view_result = database.view('_design/multiplayer_game/_view/gameServer1')
+        view_result = database.view(view_name)
 
     for item in view_result:
         game_id = item.key
@@ -258,23 +259,25 @@ def main():
     keys = ['47D02F42306851556CED48DE0BAFC731',
             '2666C7DC59BA3D66C694D350643DF4C3',
             '177A5CAFEDAE3B23DA10115A4C95C9B9',
-            'AFD51FA6F2FE61F87BACE4D28391AF04'
+            'AFD51FA6F2FE61F87BACE4D28391AF04',
+            '37314FFEEC79310727026EBF2DB722E8',
+            '55DA5B587373A31116CAD4B8B4BE3F05',
+            '9E9FA805315870376BABB490E2B92C93',
+            'A9F68B7ED431B54E4B1BA8582A29D30B',
+            '616CF48C2A8F113FF7C87EB9B0AC8950',
+            'A22C81E13075DA81B066A63FFA475674',
+            'DA06EC331CB45A13D01C9B83155D4868'
+
             ]
     if server_name == 'master':
-        type=1
-        game_list = get_server1_task(database)
+        type=0
+        game_list = get_server_task(database,type)
         key = keys[0]
         #print(game_list)
-    elif server_name == 'slaver1':
-        type = 2
-        game_list = get_server2_task(database)
-        key = keys[1]
-        #print(game_list)
-    elif server_name == 'slaver2':
-        type = 3
-        game_list = get_server3_task(database)
-        key = keys[2]
-        #print(game_list)
+    elif server_name[0:6] == 'slaver':
+        type = str(server_name[6:])
+        game_list = get_server_task(database,type)
+        key = keys[type]
     else:
         print('Server name not found, exit')
         exit(1)

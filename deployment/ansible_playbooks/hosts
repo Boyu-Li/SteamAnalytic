@@ -1,12 +1,12 @@
 [master_group]
-master ansible_host=45.113.234.206 hostname=master
+master ansible_host=45.113.232.65 hostname=master
 [slaver_group]
-slaver1 ansible_host=45.113.234.233 hostname=slaver1
-slaver2 ansible_host=45.113.232.65 hostname=slaver2
-slaver3 ansible_host=45.133.234.247 hostname=slaver3
-slaver4 ansible_host=45.133.235.174 hostname=slaver4
-slaver5 ansible_host=45.133.235.106 hostname=slaver5
-slaver6 ansible_host=115.146.93.61 hostname=slaver6
-slaver7 ansible_host=115.146.92.219 hostname=slaver7
+slaver1 ansible_host=45.113.234.247 hostname=slaver1
+slaver2 ansible_host=45.113.235.106 hostname=slaver2
+slaver3 ansible_host=45.113.234.206 hostname=slaver3
+slaver4 ansible_host=45.113.234.233 hostname=slaver4
+slaver5 ansible_host=45.113.235.174 hostname=slaver5
+slaver6 ansible_host=115.146.93.7 hostname=slaver6
+slaver7 ansible_host=115.146.92.179 hostname=slaver7
 slaver8 ansible_host=115.146.92.241 hostname=slaver8
-slaver9 ansible_host=115.146.92.253 hostname=slaver9
+slaver9 ansible_host=115.146.92.219 hostname=slaver9

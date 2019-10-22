@@ -38,7 +38,7 @@ for num in range(10):
     instances = {}
     test_dict = {}
     try:
-        with open("new_host_list.json", 'r') as load_f:
+        with open("host_list.json", 'r') as load_f:
             load_dict = json.load(load_f)
             t_dict = json.loads(load_dict)
             if len(t_dict) == 0:
