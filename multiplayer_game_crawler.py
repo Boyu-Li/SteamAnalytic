@@ -24,6 +24,7 @@ import urllib.request
 from contextlib import closing
 from time import sleep
 from couchdb import Server
+import json
 
 
 def download_page(url, timeout, pause):
@@ -34,17 +35,32 @@ def download_page(url, timeout, pause):
             sleep(pause)
     return htmlpage
 
-def store_json(dbserver, list, gamedb):
+def store_json(dbserver, list):
     index = 0;
+    with open("game_detail.json", 'r',encoding='UTF-8') as load_f:
+
+        load_dict = json.load(load_f)
+        tmp = load_dict['docs']
+    ll = []
+    for item in tmp:
+        if not item['doc'].__contains__('id'):
+            continue
+        ll.append(item['doc']['id'])
+    print(len(ll))
+    count=0
     for item in list:
         obj = {
-            'type': index % 3+1,
+            'type': index % 10,
             'id': item[0],
             'name': item[1],
             'image': 'https://steamcdn-a.akamaihd.net/steam/apps/' + item[0] + '/capsule_sm_120.jpg'
         }
+        if item[0] in ll:
+            count = count + 1
+            print(item[0]+' is skipped, count:'+str(count))
+            obj['type'] = 10
         dbserver.save(obj)
-        print(item[0]+' is saved')
+        print(item[0] + ' is saved')
         index = index + 1
 
 
@@ -59,10 +75,9 @@ def getgamepages(timeout, maxretries, pause, out):
         os.makedirs(pagedir)
     user = 'user'
     password = 'pass'
-    url = 'http://%s:%s@45.113.234.233:5984/'
+    url = 'http://%s:%s@45.113.232.65:5984/'
     db_name = 'multiplayer_game'
     server = Server(url % (user, password))
-    gamedb = server['game']
     if db_name in server:
         database = server[db_name]
         print('Login into couchdb database: ', db_name)
@@ -75,7 +90,7 @@ def getgamepages(timeout, maxretries, pause, out):
         sleep(pause * 10)
     else:
         pageids = set(gameidre.findall(htmlpage))
-        store_json(database, pageids,gamedb)
+        store_json(database, pageids)
 
 def main():
     parser = argparse.ArgumentParser(description='Crawler of Steam game ids and names')

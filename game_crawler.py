@@ -36,57 +36,6 @@ def get_server_task(database,num):
             id_list.append((game_id, item.value))
     return id_list
 
-def get_server2_task(database):
-
-    id_list = []
-
-    view_result = database.view('_design/multiplayer_game/_view/gameServer2')
-
-    try:
-        view_result.total_rows
-
-    except:
-
-        view = ViewDefinition('multiplayer_game', 'gameServer2', '''function(doc) {
-            if (doc.type === 2){
-                emit(doc.id, doc.name);
-            }
-        }''')
-        view.get_doc(database)
-        view.sync(database)
-        view_result = database.view('_design/multiplayer_game/_view/gameServer2')
-
-    for item in view_result:
-        game_id = item.key
-        if game_id not in id_list:
-            id_list.append((game_id, item.value))
-    return id_list
-
-def get_server3_task(database):
-
-    id_list = []
-
-    view_result = database.view('_design/multiplayer_game/_view/gameServer3')
-
-    try:
-        view_result.total_rows
-
-    except:
-
-        view = ViewDefinition('multiplayer_game', 'gameServer3', '''function(doc) {
-            if (doc.type === 3){
-                emit(doc.id, doc.name);
-            }
-        }''')
-        view.get_doc(database)
-        view.sync(database)
-        view_result = database.view('_design/multiplayer_game/_view/gameServer3')
-
-    for item in view_result:
-        game_id = item.key
-        if game_id not in id_list:
-            id_list.append((game_id, item.value))
-    return id_list
 
 def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,r_num,length,r_length,type):
     item = {
@@ -115,8 +64,8 @@ def getgamereviews(game_list,key,type):
     }
     user = 'user'
     password = 'pass'
-    url = 'http://%s:%s@localhost:5984/'
-    review_db_name = 'au_user'
+    url = 'http://%s:%s@45.113.232.65:5984/'
+    review_db_name = 'test'
     server = Server(url % (user, password))
     database1 = server[review_db_name]
     print('Login into couchdb database: ', review_db_name)
@@ -135,6 +84,7 @@ def getgamereviews(game_list,key,type):
     loccityre = re.compile(r'loccityid":(\d*)')
     cursorre = re.compile(r'"cursor":"(.*?)"')
     for (id, name) in game_list:
+        print('start---'+str(id)+name)
         cursor = '*'
         maxError = 10
         errorCount = 0
@@ -238,12 +188,13 @@ def getgamereviews(game_list,key,type):
                             database1.save(dict)
             cursor = cursorre.findall(htmlpage)[0]
         store_game(database2, id, name, rate, rate_state, pos_num, neg_num, total, au_num, r_num,length,r_length, type)
+        print('end---' + str(id) + name)
 
 
 def main():
     user = 'user'
     password = 'pass'
-    url = 'http://%s:%s@localhost:5984/'
+    url = 'http://%s:%s@45.113.232.65:5984/'
     db_name = 'multiplayer_game'
     server = Server(url % (user, password))
     if db_name in server:
@@ -254,7 +205,7 @@ def main():
         print('Create new couchdb database: ', db_name)
 
     #server_name = sys.argv[1]
-    server_name = 'slaver2'
+    server_name = 'slaver9'
 
     keys = ['47D02F42306851556CED48DE0BAFC731',
             '2666C7DC59BA3D66C694D350643DF4C3',
@@ -275,7 +226,7 @@ def main():
         key = keys[0]
         #print(game_list)
     elif server_name[0:6] == 'slaver':
-        type = str(server_name[6:])
+        type = int(server_name[6:])
         game_list = get_server_task(database,type)
         key = keys[type]
     else:
