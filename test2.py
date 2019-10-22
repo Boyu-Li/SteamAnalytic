@@ -8,281 +8,64 @@ from time import sleep
 import requests
 from couchdb import Server
 from couchdb.design import ViewDefinition
+import json
+# f1=open('game_detail.json','r',encoding='UTF-8')
+# f2=open('au_user0.json','r',encoding='UTF-8')
+# game=json.load(f1)
+# user=json.load(f2)
+# list1 = game['docs']
+# list2 = user['docs']
+# game_list = []
+# print("original game count:"+str(len(list1)))
+# print('extracting')
+#
+# for g in list1:
+#     if not g['doc'].__contains__('id'):
+#         continue
+#     if g['doc']['id'] not in game_list:
+#         game_list.append(g['doc']['id'])
+#
+# print('current count:'+str(len(game_list)))
+# print()
+# print("original user count:"+str(len(list2)))
+# s1  = set()
+# for a in list2:
+#     s1.add(a['doc']['from_game'])
+# print('set length:'+str(len(list(s1))))
+# print('verifying')
+# new_list=[]
+# del_list=[]
+# for user in list2:
+#     if user['doc']['from_game'] in game_list:
+#         new_list.append(user)
+# for user in list2:
+#     if user['doc']['from_game'] not in game_list:
+#         del_list.append(user)
+# print(len(new_list))
+# s2  = set()
+# for a in new_list:
+#     s2.add(a['doc']['from_game'])
+# print('set length:'+str(len(list(s2))))
+# pass_list = list(s2)
+# f3=open('multiplayer_game0.json','r',encoding='UTF-8')
+# mgame=json.load(f3)
+# new_mlist = []
+# new_mdict = {}
+# print(len(mgame['docs']))
+# for m in mgame['docs']:
+#     if not m['doc'].__contains__('id'):
+#         print(m)
+#         continue
+#     if m['doc']['id'] not in pass_list:
+#         new_mlist.append(m)
+# new_mdict['docs'] = new_mlist
+# with open("multiplayer_game.json","w") as f:
+#      json.dump(new_mdict,f)
+#      print("加载入文件完成...")
 
-def get_server1_task(database):
-
-    id_list = []
-
-    view_result = database.view('_design/multiplayer_game/_view/gameServer1')
-
-    try:
-        view_result.total_rows
-
-    except:
-
-        view = ViewDefinition('multiplayer_game', 'gameServer1', '''function(doc) {
-            if (doc.type === 1){
-                emit(doc.id, doc.name);
-            }
-        }''')
-        view.get_doc(database)
-        view.sync(database)
-        view_result = database.view('_design/multiplayer_game/_view/gameServer1')
-
-    for item in view_result:
-        game_id = item.key
-        if game_id not in id_list:
-            id_list.append((game_id, item.value))
-    return id_list
-
-def get_server2_task(database):
-
-    id_list = []
-
-    view_result = database.view('_design/multiplayer_game/_view/gameServer2')
-
-    try:
-        view_result.total_rows
-
-    except:
-
-        view = ViewDefinition('multiplayer_game', 'gameServer2', '''function(doc) {
-            if (doc.type === 2){
-                emit(doc.id, doc.name);
-            }
-        }''')
-        view.get_doc(database)
-        view.sync(database)
-        view_result = database.view('_design/multiplayer_game/_view/gameServer2')
-
-    for item in view_result:
-        game_id = item.key
-        if game_id not in id_list:
-            id_list.append((game_id, item.value))
-    return id_list
-
-def get_server3_task(database):
-
-    id_list = []
-
-    view_result = database.view('_design/multiplayer_game/_view/gameServer3')
-
-    try:
-        view_result.total_rows
-
-    except:
-
-        view = ViewDefinition('multiplayer_game', 'gameServer3', '''function(doc) {
-            if (doc.type === 3){
-                emit(doc.id, doc.name);
-            }
-        }''')
-        view.get_doc(database)
-        view.sync(database)
-        view_result = database.view('_design/multiplayer_game/_view/gameServer3')
-
-    for item in view_result:
-        game_id = item.key
-        if game_id not in id_list:
-            id_list.append((game_id, item.value))
-    return id_list
-
-def store_game(database,id, name, rate,rate_state,pos,neg,total,au_num,r_num,length,r_length,type):
-    item = {
-        'id':id,
-        'name':name,
-        'rate':rate,
-        'rate_state':rate_state,
-        'image':'https://steamcdn-a.akamaihd.net/steam/apps/'+id+'/capsule_sm_120.jpg',
-        'pos':pos,
-        'neg':neg,
-        'total':total,
-        'au_num':au_num,
-        'recent_num':r_num,
-        'length':length,
-        'rlength':r_length,
-        'type':type
-    }
-    database.save(item)
-
-
-
-def getgamereviews(game_list,key,type):
-    headers = {
-
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
-    }
-    user = 'user'
-    password = 'pass'
-    url = 'http://%s:%s@45.113.234.233:5984/'
-    review_db_name = 'au_user'
-    server = Server(url % (user, password))
-    database1 = server[review_db_name]
-    print('Login into couchdb database: ', review_db_name)
-    game_db_name = 'game_detail'
-    server = Server(url % (user, password))
-    database2 = server[game_db_name]
-    print('Login into couchdb database: ', game_db_name)
-    urltemplate = string.Template(
-        'https://store.steampowered.com/appreviews/$id?json=1&language=all&filter=all&review_type=all&purchase_type=all&num_per_page=100&day_range=9223372036854775807&cursor=$cursor')
-    endre = re.compile(r'({"success":2})|(no_more_reviews)')
-    infore = re.compile(r'{"steamid":"(.*?)","num_games_owned":(\d*),"num_reviews":(\d*),"playtime_forever":(\d*),"playtime_last_two_weeks":(\d*),"last_played":(\d*)}')
-    headerre = re.compile(
-        r'{"num_reviews":(\d*?),"review_score":(\d*?),"review_score_desc":"(.*?)","total_positive":(\d*?),"total_negative":(\d*?),"total_reviews":(\d*?)}')
-    locre = re.compile(r'loccountrycode":"(.*?)"')
-    locstatere = re.compile(r'locstatecode":"(.*?)"')
-    loccityre = re.compile(r'loccityid":(\d*)')
-    cursorre = re.compile(r'"cursor":"(.*?)"')
-    for (id, name) in game_list:
-        cursor = '*'
-        maxError = 10
-        errorCount = 0
-        count = 0
-        au_num=0
-        length=0
-        r_length=0
-        r_num=0
-        print(name)
-        while False:
-            url = urltemplate.substitute({'id': id, 'cursor': urllib.parse.quote(cursor)})
-            #print(cursor, url)
-            while True:
-                try:
-                    htmlpage = requests.get(url, timeout=20, headers=headers).text
-                    break
-                except requests.exceptions.ConnectionError:
-                    print('ConnectionError -- please wait 3 seconds')
-                    time.sleep(3)
-                except requests.exceptions.ChunkedEncodingError:
-                    print('ChunkedEncodingError -- please wait 3 seconds')
-                    time.sleep(3)
-                except:
-                    print('Unfortunitely -- An Unknow Error Happened, Please wait 3 seconds')
-                    time.sleep(3)
-
-            if htmlpage is None:
-                print('Error downloading the URL: ' + url)
-                sleep(5)
-                errorCount += 1
-                if errorCount >= maxError:
-                    print('Max error!')
-                    break
-            else:
-                if endre.search(htmlpage):
-                    break
-                if cursor == '*':
-                    header_list = headerre.findall(htmlpage)[0]
-                num = int(header_list[0])
-                rate = int(header_list[1])
-                rate_state = header_list[2]
-                pos_num = int(header_list[3])
-                neg_num = int(header_list[4])
-                total = int(header_list[5])
-                lists = infore.findall(htmlpage)
-                if len(lists)==0:
-                    break;
-                for item in lists:
-                    suburl = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='+key+'&steamids=' + \
-                             item[0]
-                    game_num = int(item[1])
-                    review_num = int(item[2])
-                    total_time = int(item[3])
-                    recent_time = int(item[4])
-                    last_played = int(item[5])
-                    while True:
-                        try:
-                            subpage = requests.get(suburl, timeout=20,headers=headers).text
-                            break
-                        except requests.exceptions.ConnectionError:
-                            print('ConnectionError -- please wait 3 seconds')
-                            time.sleep(3)
-                        except requests.exceptions.ChunkedEncodingError:
-                            print('ChunkedEncodingError -- please wait 3 seconds')
-                            time.sleep(3)
-                        except:
-                            print('Unfortunitely -- An Unknow Error Happened, Please wait 3 seconds')
-                            time.sleep(3)
-                    if subpage is not None:
-                        country=''
-                        state=''
-                        city=''
-                        dict={}
-                        try:
-                            country = locre.findall(subpage)[0]
-                            print(country)
-                            state = locstatere.findall(subpage)[0]
-                            #print(state)
-                            city = loccityre.findall(subpage)[0]
-                            #print(city)
-                        except IndexError:
-                            pass
-                        if country=='AU':
-                            au_num=au_num+1
-                            dict['country']=country
-                            dict['steamid']=item[0]
-                            dict['game_num']=game_num
-                            dict['review_num']=review_num
-                            dict['from_game']=id
-                            dict['total_time']=total_time
-                            dict['recent_time']=recent_time
-                            length += total_time
-                            r_length += recent_time
-                            if r_length>0:
-                                r_num=r_num+1
-                            dict['last_played'] = last_played
-                            dict['type']=type
-                            if state != '':
-                                dict['state'] = state
-                            if city != '':
-                                dict['city'] = city
-                            database1.save(dict)
-            cursor = cursorre.findall(htmlpage)[0]
-
-        #store_game(database2, id, name, rate, rate_state, pos_num, neg_num, total, au_num, r_num,length,r_length, type)
-
-
-def main():
-    user = 'user'
-    password = 'pass'
-    url = 'http://%s:%s@45.113.234.233:5984/'
-    db_name = 'multiplayer_game'
-    server = Server(url % (user, password))
-    if db_name in server:
-        database = server[db_name]
-        print('Login into couchdb database: ', db_name)
-    else:
-        database = server.create(db_name)
-        print('Create new couchdb database: ', db_name)
-
-    #server_name = sys.argv[1]
-    server_name = 'slaver2'
-
-    keys = ['47D02F42306851556CED48DE0BAFC731',
-            '2666C7DC59BA3D66C694D350643DF4C3',
-            '177A5CAFEDAE3B23DA10115A4C95C9B9',
-            'AFD51FA6F2FE61F87BACE4D28391AF04'
-            ]
-    if server_name == 'master':
-        type=1
-        game_list = get_server1_task(database)
-        key = keys[0]
-        #print(game_list)
-    elif server_name == 'slaver1':
-        type = 2
-        game_list = get_server2_task(database)
-        key = keys[1]
-        #print(game_list)
-    elif server_name == 'slaver2':
-        type = 3
-        game_list = get_server3_task(database)
-        key = keys[2]
-        #print(game_list)
-    else:
-        print('Server name not found, exit')
-        exit(1)
-
-    getgamereviews(game_list,key,type)
-
-
-if __name__ == '__main__':
-    main()
+f1=open('multiplayer_game.json','r',encoding='UTF-8')
+f2=open('au_user.json','r',encoding='UTF-8')
+game=json.load(f1)
+user=json.load(f2)
+print(len(game['docs']))
+print(len(user['docs']))
