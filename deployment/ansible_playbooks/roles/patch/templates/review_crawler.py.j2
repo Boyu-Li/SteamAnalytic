@@ -72,6 +72,11 @@ def getgamereviews(game_list,key,type):
     game_db_name = 'game_detail'
     server = Server(url % (user, password))
     database2 = server[game_db_name]
+    skip_view = database2.view('_all_docs', include_docs=True)
+    skip_list = []
+    for i in skip_view:
+        if i['doc'].__contains__('id'):
+            skip_list.append(i['doc']['id'])
     print('Login into couchdb database: ', game_db_name)
     urltemplate = string.Template(
         'https://store.steampowered.com/appreviews/$id?json=1&language=all&filter=all&review_type=all&purchase_type=all&num_per_page=100&day_range=9223372036854775807&cursor=$cursor')
@@ -84,6 +89,9 @@ def getgamereviews(game_list,key,type):
     loccityre = re.compile(r'loccityid":(\d*)')
     cursorre = re.compile(r'"cursor":"(.*?)"')
     for (id, name) in game_list:
+        if id in skip_list:
+            print('skip---'+str(id)+':'+name)
+            continue
         print('start---'+str(id)+':'+name)
         cursor = '*'
         maxError = 10
@@ -121,7 +129,11 @@ def getgamereviews(game_list,key,type):
                 if endre.search(htmlpage):
                     break
                 if cursor == '*':
-                    header_list = headerre.findall(htmlpage)[0]
+                    try:
+                        header_list = headerre.findall(htmlpage)[0]
+                    except IndexError:
+                        print('except:'+str(id))
+                        break
                 num = int(header_list[0])
                 rate = int(header_list[1])
                 rate_state = header_list[2]
@@ -204,8 +216,8 @@ def main():
         database = server.create(db_name)
         print('Create new couchdb database: ', db_name)
 
-    #server_name = sys.argv[1]
-    server_name = 'slaver9'
+    server_name = sys.argv[1]
+    #server_name = 'slaver9'
 
     keys = ['47D02F42306851556CED48DE0BAFC731',
             '2666C7DC59BA3D66C694D350643DF4C3',

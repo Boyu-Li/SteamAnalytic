@@ -72,6 +72,11 @@ def getgamereviews(game_list,key,type):
     game_db_name = 'game_detail'
     server = Server(url % (user, password))
     database2 = server[game_db_name]
+    skip_view = database2.view('_all_docs', include_docs=True)
+    skip_list = []
+    for i in skip_view:
+        if i['doc'].__contains__('id'):
+            skip_list.append(i['doc']['id'])
     print('Login into couchdb database: ', game_db_name)
     urltemplate = string.Template(
         'https://store.steampowered.com/appreviews/$id?json=1&language=all&filter=all&review_type=all&purchase_type=all&num_per_page=100&day_range=9223372036854775807&cursor=$cursor')
@@ -84,7 +89,10 @@ def getgamereviews(game_list,key,type):
     loccityre = re.compile(r'loccityid":(\d*)')
     cursorre = re.compile(r'"cursor":"(.*?)"')
     for (id, name) in game_list:
-        print('start---'+str(id)+name)
+        if id in skip_list:
+            print('skip---'+str(id)+':'+name)
+            continue
+        print('start---'+str(id)+':'+name)
         cursor = '*'
         maxError = 10
         errorCount = 0
@@ -232,7 +240,6 @@ def main():
     else:
         print('Server name not found, exit')
         exit(1)
-
     getgamereviews(game_list,key,type)
 
 

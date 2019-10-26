@@ -1,156 +1,47 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-# Copyright (C) 2018 Andrea Esuli (andrea@esuli.it)
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-import argparse
-import csv
-import os
 import re
-import socket
 import string
 import urllib
+import time
+import sys
 import urllib.request
-from contextlib import closing
 from time import sleep
 import requests
+from couchdb import Server
+from couchdb.design import ViewDefinition
+import json
+user = 'user'
+password = 'pass'
+url = 'http://%s:%s@45.113.232.65:5984/'
+db_name = 'au_user'
+server = Server(url % (user, password))
+if db_name in server:
+    database = server[db_name]
+    print('Login into couchdb database: ', db_name)
+else:
+    database = server.create(db_name)
+    print('Create new couchdb database: ', db_name)
 
-def download_page(url, maxretries, timeout, pause):
-    tries = 0
-    htmlpage = None
-    while tries < maxretries and htmlpage is None:
-        try:
-            with closing(urllib.request.urlopen(url, timeout=timeout)) as f:
-                htmlpage = f.read()
-                sleep(pause)
-        except (urllib.error.URLError, socket.timeout, socket.error):
-            tries += 1
-    return htmlpage
+f1=open('au_user.json','r',encoding='UTF-8')
+game=json.load(f1)['docs']
+for i in game:
+    print(i)
+    if not i['doc'].__contains__('steamid'):
+        continue
+    data={
+        'steamid':i['doc']['steamid'],
+        'country':i['doc']['country'],
+        'game_num':i['doc']['game_num'],
+        'review_num':i['doc']['review_num'],
+        'from_game':i['doc']['from_game'],
+        'total_time':i['doc']['total_time'],
+        'recent_time':i['doc']['recent_time'],
+        'last_played':i['doc']['last_played'],
+        'type':i['doc']['type'],
+    }
+    if i['doc'].__contains__('state'):
+        i['state']=i['doc']['state']
+    if i['doc'].__contains__('city'):
+        i['state']=i['doc']['city']
+    print(data)
+    database.save(data)
 
-
-def getgameids(filename):
-    ids = set()
-    with open(filename, encoding='utf8') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            dir = row[0]
-            id_ = row[1]
-            name = row[2]
-            ids.add((dir, id_, name))
-    return ids
-
-
-def getgamereviews(timeout, maxretries, pause, out):
-    urltemplate = string.Template(
-        'https://store.steampowered.com/appreviews/$id?json=1&language=all&filter=all&review_type=all&purchase_type=all&num_per_page=100&day_range=9223372036854775807&cursor=$cursor')
-        #'http://store.steampowered.com//appreviews/$id?start_offset=$offset&filter=recent&language=english')
-    endre = re.compile(r'({"success":2})|(no_more_reviews)')
-    infore = re.compile(r'"steamid":"(.*?)"')
-    headerre = re.compile(r'{"num_reviews":(\d*?),"review_score":(\d*?),"review_score_desc":"(.*?)","total_positive":(\d*?),"total_negative":(\d*?),"total_reviews":(\d*?)}')
-    locre = re.compile(r'loccountrycode":"(.*?)"')
-    locstatere = re.compile(r'locstatecode":"(.*?)"')
-    loccityre = re.compile(r'loccityid":(\d*)')
-    cursorre = re.compile(r'"cursor":"(.*?)"')
-    ids = [('a','728880','*')]
-    for (dir, id_, cursor) in ids:
-        if dir == 'sub':
-            print('skipping sub %s %s' % (id_, cursor))
-            continue
-        print(dir, id_, cursor)
-        cursor = '*'
-        total = 0
-        res = []
-        while True:
-            url = urltemplate.substitute({'id': id_, 'cursor': urllib.parse.quote(cursor)})
-
-            print(cursor, url)
-            htmlpage = requests.get(url).text
-
-            if htmlpage is None:
-                pass
-            else:
-                if endre.search(htmlpage):
-                    break
-                if cursor == '*':
-                    header_list = headerre.findall(htmlpage)
-                    print(total)
-                    num = int(header_list[0])
-                    rate = int(header_list[1])
-                    total = int(header_list[5])
-
-                lists = infore.findall(htmlpage)
-                for item in lists:
-                    if item not in res:
-                        suburl = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=646968A1C8E1AF8E602F1E1193F07C1E&steamids='+item
-                        subpage = requests.get(suburl).text
-                        print('.')
-                        if subpage is not None:
-                            try:
-                                country = locre.findall(subpage)[0]
-                                print(country)
-                                if country == 'AU':
-                                    user = {
-                                        'steamid':item
-                                    }
-                                state = locstatere.findall(subpage)[0]
-                                print(state)
-                                city = loccityre.findall(subpage)[0]
-                                print(city)
-                            except IndexError:
-                                pass
-                print(len(res))
-                new_cursor = cursorre.findall(htmlpage)[0]
-                if new_cursor == cursor:
-                    print(len(res))
-                    break
-                else:
-                    cursor = new_cursor
-        print(len(res))
-
-
-def main():
-    parser = argparse.ArgumentParser(description='Crawler of Steam reviews')
-    parser.add_argument('-f', '--force', help='Force download even if already successfully downloaded', required=False,
-                        action='store_true')
-    parser.add_argument(
-        '-t', '--timeout', help='Timeout in seconds for http connections. Default: 180',
-        required=False, type=int, default=180)
-    parser.add_argument(
-        '-r', '--maxretries', help='Max retries to download a file. Default: 5',
-        required=False, type=int, default=3)
-    parser.add_argument(
-        '-p', '--pause', help='Seconds to wait between http requests. Default: 0.5', required=False, default=0.5,
-        type=float)
-    parser.add_argument(
-        '-m', '--maxreviews', help='Maximum number of reviews per item to download. Default:unlimited', required=False,
-        type=int, default=-1)
-    parser.add_argument(
-        '-o', '--out', help='Output base path', required=False, default='data')
-    parser.add_argument(
-        '-i', '--ids', help='File with game ids', required=False, default='./data/games.csv')
-    args = parser.parse_args()
-
-    if not os.path.exists(args.out):
-        os.makedirs(args.out)
-
-    # ids = getgameids(args.ids)
-    #
-    # print('%s games' % len(ids))
-
-    getgamereviews(args.timeout, args.maxretries, args.pause, args.out)
-
-
-if __name__ == '__main__':
-    main()

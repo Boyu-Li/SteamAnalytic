@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fe3b02a-b671-4ad9-8faf-efb6ea06d8a3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/tasks/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/tasks/main.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/review_crawler.py.j2" beforeDir="false" afterPath="$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/review_crawler.py.j2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_crawler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multiplayer_game_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/multiplayer_game_crawler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/update_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/update_crawler.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,22 +19,43 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test2.py">
+        <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/review_crawler.py.j2">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
+            <state relative-caret-position="140">
+              <caret line="137" column="25" lean-forward="true" selection-end-line="252" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classify_singleplayer_game.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="960">
+              <caret line="85" column="16" lean-forward="true" selection-start-line="85" selection-start-column="16" selection-end-line="85" selection-end-column="16" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#734#749#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/master_couchdb/tasks/main.yml">
+        <entry file="file://$PROJECT_DIR$/game_detail.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="26" column="13" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+            <state>
+              <caret column="5" selection-start-column="5" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/multiplayer_game_crawler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-24">
+              <caret line="61" column="20" selection-end-line="122" />
+              <folding>
+                <element signature="e#734#749#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -39,8 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classify_game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-48">
-              <caret line="109" column="25" lean-forward="true" selection-start-line="109" selection-start-column="25" selection-end-line="109" selection-end-column="25" />
+            <state relative-caret-position="293">
+              <caret line="91" column="30" selection-end-line="126" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -48,70 +72,53 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/review_crawler.py.j2">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="190" column="37" selection-start-line="190" selection-start-column="37" selection-end-line="190" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
-              <folding>
-                <element signature="e#734#749#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/steam-game-crawler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="96" />
-              <folding>
-                <element signature="e#734#749#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/tasks/main.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game.json">
-          <provider selected="true" editor-type-id="LargeFileEditor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/hosts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="1" column="20" lean-forward="true" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_crawler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="470">
-              <caret line="218" column="44" selection-end-line="240" />
+            <state relative-caret-position="192">
+              <caret line="17" column="12" lean-forward="true" selection-end-line="247" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/tasks/main.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/run_single_crawler.sh.j2">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="34" selection-start-column="34" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/single_game_crawler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3702">
+              <caret line="219" column="26" selection-start-line="219" selection-start-column="26" selection-end-line="219" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/singleplayer_crawler.py.j2">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5472">
+              <caret line="252" lean-forward="true" selection-start-line="252" selection-end-line="252" />
             </state>
           </provider>
         </entry>
@@ -127,13 +134,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>gameidre</find>
       <find>pageids</find>
       <find>download_page</find>
       <find>getgamepages</find>
       <find>1323</find>
       <find>&quot;Carlton&quot;</find>
-      <find>VIC</find>
       <find>count</find>
       <find>store_game</find>
       <find>id</find>
@@ -148,7 +153,17 @@
       <find>204300</find>
       <find>1</find>
       <find>new</find>
+      <find>save</find>
+      <find>database</find>
+      <find>database1</find>
+      <find>cursor</find>
       <find>print</find>
+      <find>730</find>
+      <find>&quot;id&quot;:&quot;730&quot;</find>
+      <find>1085660</find>
+      <find>570</find>
+      <find>271590</find>
+      <find>VIC</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -165,13 +180,9 @@
         <option value="$PROJECT_DIR$/deployment/launch_instance_boto.py" />
         <option value="$PROJECT_DIR$/deployment/ansible_playbooks/roles/master_couchdb/templates/game_crawler.j2" />
         <option value="$PROJECT_DIR$/steam-game-crawler.py" />
-        <option value="$PROJECT_DIR$/update_crawler.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/deployment/ansible_playbooks/p.yml" />
-        <option value="$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/tasks/main.yml" />
         <option value="$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/run_crawler.sh.j2" />
         <option value="$PROJECT_DIR$/deployment/ansible_playbooks/check_job.yml" />
-        <option value="$PROJECT_DIR$/review_crawler.py" />
         <option value="$PROJECT_DIR$/classify_game.py" />
         <option value="$PROJECT_DIR$/deployment/new_host_list.json" />
         <option value="$PROJECT_DIR$/deployment/ansible_playbooks/roles/slaver_couchdb/templates/set_cluster.sh.j2" />
@@ -183,14 +194,24 @@
         <option value="$PROJECT_DIR$/deployment/host_list.json" />
         <option value="$PROJECT_DIR$/multiplayer_game_crawler.py" />
         <option value="$PROJECT_DIR$/test2.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/review_crawler.py" />
+        <option value="$PROJECT_DIR$/update_crawler.py" />
         <option value="$PROJECT_DIR$/game_crawler.py" />
         <option value="$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/review_crawler.py.j2" />
+        <option value="$PROJECT_DIR$/create_view.py" />
+        <option value="$PROJECT_DIR$/deployment/classify_singleplayer_game.py" />
+        <option value="$PROJECT_DIR$/classify_singleplayer_game.py" />
+        <option value="$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/singleplayer_crawler.py.j2" />
+        <option value="$PROJECT_DIR$/single_game_crawler.py" />
+        <option value="$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/run_single_crawler.sh.j2" />
+        <option value="$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/tasks/main.yml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="825" />
-    <option name="y" value="465" />
+    <option name="x" value="792" />
+    <option name="y" value="864" />
     <option name="width" value="2619" />
     <option name="height" value="2088" />
   </component>
@@ -200,7 +221,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -330,22 +350,30 @@
               <item name="slaver_couchdb" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="steam" type="b2602c69:ProjectViewProjectNode" />
+              <item name="steam" type="462c0819:PsiDirectoryNode" />
+              <item name="raw_data" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\python-workspace\steam\deployment" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\python-workspace\steam\deployment\ansible_playbooks\roles\patch\templates" />
       <recent name="D:\python-workspace\steam" />
       <recent name="D:\python-workspace\steam\deployment\ansible_playbooks\roles\master_couchdb\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\python-workspace\steam" />
+      <recent name="D:\python-workspace\steam\deployment" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -360,7 +388,49 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.game_crawler">
+  <component name="RunManager" selected="Python.single_game_crawler">
+    <configuration name="classify_singleplayer_game" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="steam" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/classify_singleplayer_game.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="create_view" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="steam" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/create_view.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="game_crawler" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="steam" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -382,7 +452,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="multiplayer_game_crawler" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="single_game_crawler" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="steam" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -394,7 +464,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/multiplayer_game_crawler.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/single_game_crawler.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -403,28 +473,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="new_launch" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="steam" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/deployment" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/deployment/new_launch.py" />
-      <option name="PARAMETERS" value="nectar_key.json" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="update_crawler" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="steam" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -436,28 +485,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="steam" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/update_crawler.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -467,19 +495,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.multiplayer_game_crawler" />
       <item itemvalue="Python.game_crawler" />
-      <item itemvalue="Python.test" />
-      <item itemvalue="Python.test2" />
-      <item itemvalue="Python.new_launch" />
+      <item itemvalue="Python.update_crawler" />
+      <item itemvalue="Python.create_view" />
+      <item itemvalue="Python.classify_singleplayer_game" />
+      <item itemvalue="Python.single_game_crawler" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.single_game_crawler" />
+        <item itemvalue="Python.classify_singleplayer_game" />
+        <item itemvalue="Python.create_view" />
         <item itemvalue="Python.game_crawler" />
-        <item itemvalue="Python.test2" />
-        <item itemvalue="Python.multiplayer_game_crawler" />
-        <item itemvalue="Python.new_launch" />
-        <item itemvalue="Python.test" />
+        <item itemvalue="Python.update_crawler" />
       </list>
     </recent_temporary>
   </component>
@@ -500,12 +528,12 @@
     <frame x="-6" y="-6" width="1719" height="932" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13827893" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30207714" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917705" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.276808" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.16084789" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3990025" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -544,18 +572,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test.py</url>
-          <line>148</line>
+          <line>47</line>
           <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>113</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>96</line>
-          <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/deployment/new_launch.py</url>
@@ -578,103 +596,43 @@
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/update_crawler.py</url>
+          <line>142</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/game_crawler.py</url>
-          <line>36</line>
-          <option name="timeStamp" value="37" />
+          <line>74</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/game_crawler.py</url>
+          <line>79</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/create_view.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/create_view.py</url>
+          <line>31</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/classify_singleplayer_game.py</url>
+          <line>38</line>
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/massively_game_files/capsule_sm_120(4).jpg" />
-    <entry file="file://D:/Anaconda3/Lib/urllib/request.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8592">
-          <caret line="382" selection-start-line="382" selection-end-line="382" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/massively_game.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/steam-game-extractor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="56" column="38" selection-start-line="56" selection-start-column="28" selection-end-line="56" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/steam-review-crawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="58" selection-end-line="136" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/update_crawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3096">
-          <caret line="156" selection-start-line="156" selection-end-line="156" />
-          <folding>
-            <element signature="e#734#749#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/steam-review-extractor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2448" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/requests/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="386" selection-start-line="386" selection-end-line="386" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/steam_countries.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="29479" column="16" selection-start-line="29479" selection-start-column="13" selection-end-line="29479" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multiplayer_game.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523056">
-          <caret line="21794" column="5" selection-start-line="21794" selection-start-column="5" selection-end-line="21794" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Anaconda3/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="309" selection-start-line="309" selection-end-line="309" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/p.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="34" selection-start-column="34" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/run_crawler.sh.j2">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="28" selection-start-column="28" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/review_crawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4872">
-          <caret line="212" column="4" selection-start-line="212" selection-start-column="4" selection-end-line="212" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -718,13 +676,7 @@
     <entry file="file://$PROJECT_DIR$/deployment/test_jobs.sh">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/master_couchdb/templates/game_crawler.j2">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="61" column="26" selection-end-line="107" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/master_couchdb/templates/game_crawler.j2" />
     <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/slaver_couchdb/templates/get_cluster.sh.j2">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -739,16 +691,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game_detail.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="5" selection-start-column="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/au_user">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/au_user" />
     <entry file="file://$PROJECT_DIR$/au_user0.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -795,13 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/deployment/host_list.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="280" selection-start-column="280" selection-end-column="280" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/main.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
@@ -837,32 +773,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
-          <folding>
-            <element signature="e#734#749#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/steam-game-crawler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="501">
           <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="96" />
           <folding>
             <element signature="e#734#749#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -877,37 +793,142 @@
     <entry file="file://$PROJECT_DIR$/game.json">
       <provider selected="true" editor-type-id="LargeFileEditor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/deployment/host_list.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="280" selection-start-column="280" selection-end-column="280" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/couchdb/design.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2184">
+          <caret line="96" selection-start-line="96" selection-end-line="96" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/update_crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="35" column="46" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/review_crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2304">
+          <caret line="105" column="26" selection-start-line="105" selection-start-column="15" selection-end-line="105" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/create_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/raw_data/multiplayer_game.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="1632" column="246" selection-start-line="1632" selection-start-column="236" selection-end-line="1632" selection-end-column="246" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/raw_data/game_detail.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/raw_data/game.json">
+      <provider selected="true" editor-type-id="LargeFileEditor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/raw_data/au_user0.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="6744" column="270" selection-start-line="6744" selection-start-column="264" selection-end-line="6744" selection-end-column="270" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/raw_data/steam_countries.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="29488" column="45" selection-start-line="29488" selection-start-column="45" selection-end-line="29488" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/classify_game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-48">
-          <caret line="109" column="25" lean-forward="true" selection-start-line="109" selection-start-column="25" selection-end-line="109" selection-end-column="25" />
+        <state relative-caret-position="293">
+          <caret line="91" column="30" selection-end-line="126" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/game_detail.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/multiplayer_game_crawler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-771">
-          <caret line="45" column="8" lean-forward="true" selection-start-line="45" selection-start-column="8" selection-end-line="46" selection-end-column="20" />
+        <state relative-caret-position="-24">
+          <caret line="61" column="20" selection-end-line="122" />
           <folding>
             <element signature="e#734#749#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/tasks/main.yml">
+    <entry file="file://$PROJECT_DIR$/classify_singleplayer_game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="960">
+          <caret line="85" column="16" lean-forward="true" selection-start-line="85" selection-start-column="16" selection-end-line="85" selection-end-column="16" />
+          <folding>
+            <element signature="e#734#749#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game_crawler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="218" column="44" selection-end-line="240" />
+        <state relative-caret-position="192">
+          <caret line="17" column="12" lean-forward="true" selection-end-line="247" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -916,8 +937,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/review_crawler.py.j2">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="190" column="37" selection-start-line="190" selection-start-column="37" selection-end-line="190" selection-end-column="37" />
+        <state relative-caret-position="140">
+          <caret line="137" column="25" lean-forward="true" selection-end-line="252" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/singleplayer_crawler.py.j2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5472">
+          <caret line="252" lean-forward="true" selection-start-line="252" selection-end-line="252" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/single_game_crawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3702">
+          <caret line="219" column="26" selection-start-line="219" selection-start-column="26" selection-end-line="219" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/templates/run_single_crawler.sh.j2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="34" selection-start-column="34" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployment/ansible_playbooks/roles/patch/tasks/main.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
         </state>
       </provider>
     </entry>

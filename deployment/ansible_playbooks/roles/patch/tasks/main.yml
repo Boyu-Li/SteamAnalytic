@@ -10,16 +10,16 @@
 
 - name: Transfer crawler file
   template:
-    src: review_crawler.py.j2
-    dest: review_crawler.py
+    src: singleplayer_crawler.py.j2
+    dest: singleplayer_crawler.py
 
 - name: Transfer crawler file
   template:
-    src: run_crawler.sh.j2
-    dest: run_crawler.sh
+    src: run_single_crawler.sh.j2
+    dest: run_single_crawler.sh
 
-- name: Changing perm of "run_crawler.sh", adding "+x"
-  file: dest=run_crawler.sh mode=a+x
+- name: Changing perm of "run_single_crawler.sh", adding "+x"
+  file: dest=run_single_crawler.sh mode=a+x
 
 - name: Execute the script
-  command: sh run_crawler.sh
+  command: sh run_single_crawler.sh
