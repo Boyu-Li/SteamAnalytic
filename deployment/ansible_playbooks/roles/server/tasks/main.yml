@@ -1,0 +1,74 @@
+---
+- name: Update and upgrade apt packages
+  become: yes
+  become_method: sudo
+  become_user: root
+  shell: |
+    apt-get update
+    apt-get upgrade -y
+  args:
+    warn: false
+
+- name: Install newer version nodejs
+  become: yes
+  become_method: sudo
+  become_user: root
+  shell: |
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    apt-get install -y nodejs
+  args:
+    warn: false
+
+- name: Install some required packages
+  become: yes
+  become_method: sudo
+  become_user: root
+  shell: |
+    npm install -g express
+    npm install -g @vue/cli
+
+- name: Transfer dbhost file
+  template:
+    src: dbhost.txt.j2
+    dest: dbhost.txt
+
+- name: Synchronize application
+  synchronize:
+    src: syn_directory/Application
+    dest: /home/ubuntu/
+
+- name: Transfer script1
+  template:
+    src: runs.sh.j2
+    dest: Application/server/runs.sh
+
+- name: Transfer script2
+  template:
+    src: runc.sh.j2
+    dest: Application/client/cloud_assignment_2/runc.sh
+
+- name: "Install forever (to run Node.js app)."
+  npm: name=forever global=yes state=latest
+
+- name: "Check list of Node.js apps running."
+  command: /usr/bin/forever list
+  register: forever_list
+  changed_when: false
+
+- name: "Running front end application"
+  shell: |
+    cd /home
+    cd ubuntu
+    cd Application
+    cd server
+    /usr/bin/forever start app.js
+
+
+- name: "Running back end application"
+  shell: |
+    cd /home
+    cd ubuntu
+    cd Application
+    cd client
+    cd cloud_assignment_2
+    /usr/bin/forever start node_modules/@vue/cli-service/bin/vue-cli-service.js serve

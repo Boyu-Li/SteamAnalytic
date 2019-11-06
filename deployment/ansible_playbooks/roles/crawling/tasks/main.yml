@@ -1,0 +1,61 @@
+- name: Install all required python packages
+  become: yes
+  become_method: sudo
+  become_user: root
+  shell: |
+    pip3 install urllib
+    apt-get update
+  args:
+    warn: false
+
+- name: Transfer crawler file
+  template:
+    src: singleplayer_crawler.py.j2
+    dest: singleplayer_crawler.py
+
+- name: Transfer crawler file
+  template:
+    src: review_crawler.py.j2
+    dest: review_crawler.py
+
+- name: Transfer bash file
+  template:
+    src: run_single_crawler.sh.j2
+    dest: run_single_crawler.sh
+
+- name: Transfer bash file
+  template:
+    src: run_crawler.sh.j2
+    dest: run_crawler.sh
+
+- name: Changing perm of "run_single_crawler.sh", adding "+x"
+  file: dest=run_single_crawler.sh mode=a+x
+
+- name: Changing perm of "run_crawler.sh", adding "+x"
+  file: dest=run_crawler.sh mode=a+x
+
+- name: Install Batchjobs on crontab
+  become: yes
+  become_method: sudo
+  become_user: root
+  cron:
+    name: "S_Crawling"
+    minute: "0"
+    hour: "0"
+    job: "home/ubuntu/run_single_crawler.sh >> home/ubuntu/testout_s"
+    disabled: "no"
+  tags:
+   - cronjobs
+
+- name: Install Batchjobs on crontab
+  become: yes
+  become_method: sudo
+  become_user: root
+  cron:
+    name: "Crawling"
+    minute: "0"
+    hour: "0"
+    job: "home/ubuntu/run_crawler.sh >> home/ubuntu/testout"
+    disabled: "no"
+  tags:
+   - cronjobs
